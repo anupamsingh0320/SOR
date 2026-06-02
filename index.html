@@ -7,7 +7,6 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',system-ui,sans-serif;font-size:13px;color:#1a1a1a;background:#f5f6f7;min-height:100vh}
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
 .page{max-width:1400px;margin:0 auto;padding:1.5rem}
 .topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:1rem 1.25rem;background:#fff;border-radius:12px;border:0.5px solid #e0e0e0;margin-bottom:1rem;flex-wrap:wrap}
 .brand{font-size:10px;color:#999;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px}
@@ -17,27 +16,25 @@ body{font-family:'DM Sans',system-ui,sans-serif;font-size:13px;color:#1a1a1a;bac
 .badge-live{font-size:11px;font-weight:500;padding:4px 10px;border-radius:20px;background:#e6f7f0;color:#0a7a4a;display:flex;align-items:center;gap:5px}
 .dot{width:6px;height:6px;border-radius:50%;background:#0a7a4a}
 .btn-dl{font-size:12px;padding:6px 14px;border:0.5px solid #ccc;border-radius:8px;background:#fff;cursor:pointer;display:flex;align-items:center;gap:5px;color:#333;font-family:inherit}
-.btn-dl:hover{background:#f5f6f7}
 .dropdown{position:relative;display:inline-block}
 .dd-btn{font-size:12px;padding:6px 10px;border:0.5px solid #ddd;border-radius:8px;background:#fff;cursor:pointer;display:flex;align-items:center;gap:8px;color:#333;min-width:180px;font-family:inherit}
-.dd-btn:hover{border-color:#aaa}
 .dd-panel{position:absolute;top:calc(100% + 4px);left:0;z-index:300;background:#fff;border:0.5px solid #ddd;border-radius:10px;min-width:220px;box-shadow:0 8px 24px rgba(0,0,0,0.1);display:none}
 .dd-panel.open{display:block}
 .dd-item{padding:8px 14px;cursor:pointer;border-bottom:0.5px solid #f0f0f0}
 .dd-item:last-child{border-bottom:none}
 .dd-item:hover{background:#f5f6f7}
 .dd-item.active{background:#e6f7f0}
-.dd-item .di-label{font-size:12px;font-weight:500;color:#111}
+.di-label{font-size:12px;font-weight:500;color:#111}
 .dd-item.active .di-label{color:#0a7a4a}
-.dd-item .di-sub{font-size:11px;color:#aaa;margin-top:1px}
+.di-sub{font-size:11px;color:#aaa;margin-top:1px}
 .custom-range{padding:12px 14px;border-top:0.5px solid #f0f0f0}
 .cr-title{font-size:11px;font-weight:500;color:#666;margin-bottom:8px}
 .cr-row{display:flex;gap:8px;margin-bottom:8px}
-.cr-row label{font-size:11px;color:#888;display:block;margin-bottom:3px}
-.cr-row input{width:100%;font-size:12px;padding:5px 8px;border:0.5px solid #ddd;border-radius:6px;font-family:inherit;outline:none}
-.cr-row input:focus{border-color:#0a7a4a}
+.cr-field{flex:1}
+.cr-field label{font-size:11px;color:#888;display:block;margin-bottom:3px}
+.cr-field input{width:100%;font-size:12px;padding:5px 8px;border:0.5px solid #ddd;border-radius:6px;font-family:inherit;outline:none}
+.cr-field input:focus{border-color:#0a7a4a}
 .cr-apply{width:100%;font-size:12px;padding:7px;border:none;border-radius:6px;background:#0a7a4a;color:#fff;cursor:pointer;font-family:inherit;font-weight:500}
-.cr-apply:hover{background:#087040}
 .sec-label{font-size:10px;font-weight:600;color:#999;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px}
 .card{background:#fff;border-radius:12px;border:0.5px solid #e0e0e0;padding:1.25rem;margin-bottom:1rem}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:1rem}
@@ -46,9 +43,9 @@ body{font-family:'DM Sans',system-ui,sans-serif;font-size:13px;color:#1a1a1a;bac
 .tile-val{font-size:22px;font-weight:600;line-height:1}
 .tile-sub{font-size:10px;color:#aaa;margin-top:3px}
 .tile-default{background:#f5f6f7}
-.tile-grn{background:#e6f7f0}.tile-grn .tile-val{color:#0a7a4a}.tile-grn .tile-label{color:#0a7a4a}
-.tile-warn{background:#fff8ee}.tile-warn .tile-val{color:#c47a0a}.tile-warn .tile-label{color:#c47a0a}
-.tile-shelf{background:#e8f4fb}.tile-shelf .tile-val{color:#1565a8}.tile-shelf .tile-label{color:#1565a8}
+.tile-grn{background:#e6f7f0}.tile-grn .tile-val,.tile-grn .tile-label{color:#0a7a4a}
+.tile-warn{background:#fff8ee}.tile-warn .tile-val,.tile-warn .tile-label{color:#c47a0a}
+.tile-shelf{background:#e8f4fb}.tile-shelf .tile-val,.tile-shelf .tile-label{color:#1565a8}
 table{width:100%;border-collapse:collapse}
 th{background:#1F3864;color:#fff;font-size:10px;font-weight:500;padding:8px 9px;text-align:right;white-space:nowrap;letter-spacing:0.03em}
 th.thl{text-align:left}
@@ -56,30 +53,33 @@ td{padding:8px 9px;text-align:right;font-size:12px;border-bottom:0.5px solid #f0
 td.tdl{text-align:left}
 tr.alt td{background:#fafafa}
 tr.total td{background:#f0f0f0;font-weight:600;color:#111}
+tr.prn-row td{background:#fff8ee}
 td.c-grn{color:#0a7a4a;font-weight:500}
 td.c-warn{color:#c47a0a;font-weight:500}
 td.c-info{color:#1565a8;font-weight:500}
 td.c-mut{color:#bbb}
 td.c-bold{font-weight:600;color:#111}
 td.c-red{color:#c0392b;font-weight:500}
+td.c-neg{color:#c0392b;font-weight:600}
 .tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:20px;font-weight:500;white-space:nowrap}
 .tag-sold{background:#f1efe8;color:#5f5e5a}
 .tag-active{background:#eaf3de;color:#3b6d11}
 .tag-new{background:#e6f1fb;color:#185fa5}
+.tag-prn{background:#fff0e0;color:#854F0B}
 .tbl-wrap{overflow-x:auto;border:0.5px solid #e0e0e0;border-radius:10px;overflow:hidden}
 .pay-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid #f0f0f0;font-size:12px}
 .pay-row:last-child{border-bottom:none;padding-top:12px}
 .pay-label{color:#666}
 .pay-val{font-weight:500;color:#111}
 .pay-val.red{color:#c0392b}
-.pay-net{font-size:15px;font-weight:600}.pay-net-val{font-size:20px;font-weight:600;color:#0a7a4a}
+.pay-net{font-size:15px;font-weight:600}
+.pay-net-val{font-size:20px;font-weight:600;color:#0a7a4a}
 .btns{display:flex;flex-direction:column;gap:8px}
 .btn-csv{font-size:12px;padding:9px 16px;border:0.5px solid #ddd;border-radius:8px;background:#fff;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;color:#333}
 .btn-report{font-size:12px;padding:9px 16px;border:none;border-radius:8px;background:#0a7a4a;color:#fff;cursor:pointer;font-family:inherit;font-weight:500;display:flex;align-items:center;gap:5px}
-.btn-report:hover{background:#087040}
-.footer-note{font-size:11px;color:#aaa;margin-top:10px}
 .pay-wrap{display:flex;gap:12px;align-items:flex-start}
 .pay-card{flex:1}
+.footer-note{font-size:11px;color:#aaa;margin-top:10px}
 </style>
 </head>
 <body>
@@ -105,8 +105,8 @@ td.c-red{color:#c0392b;font-weight:500}
         <div class="custom-range">
           <div class="cr-title">Custom date range</div>
           <div class="cr-row">
-            <div style="flex:1"><label>Start date</label><input type="date" id="cr-start" value="2025-01-01"></div>
-            <div style="flex:1"><label>End date</label><input type="date" id="cr-end" value="2025-01-15"></div>
+            <div class="cr-field"><label>Start date</label><input type="date" id="cr-start" value="2025-01-01"></div>
+            <div class="cr-field"><label>End date</label><input type="date" id="cr-end" value="2025-01-15"></div>
           </div>
           <button class="cr-apply" onclick="applyCustom()">Apply</button>
         </div>
@@ -136,7 +136,7 @@ td.c-red{color:#c0392b;font-weight:500}
 </div>
 
 <div class="card">
-  <div class="sec-label">Invoice-level detail — FIFO</div>
+  <div class="sec-label">Invoice & transaction detail — FIFO</div>
   <div class="tbl-wrap"><table id="inv-table"></table></div>
 </div>
 
@@ -153,7 +153,6 @@ td.c-red{color:#c0392b;font-weight:500}
 </div>
 
 </div>
-
 <script>
 const DATA = {
   daily:{
@@ -163,12 +162,13 @@ const DATA = {
       {id:"FC002",name:"FC002 — Hyderabad",cp:249,whOb:80,itrOb:0,ob:80,grn:0,prn:0,ret:0,sales:22,cc:0,cb:58,intr:0,whCb:58,whPend:0,shelf:58},
     ],
     invoices:[
-      {grn:"GRN-20250115-001",date:"6 Jan 2025",qty:60,oq:4,cq:0,diff:4,cp:247,dv:988,whp:0,st:"Fully sold"},
-      {grn:"GRN-20250113-001",date:"8 Jan 2025",qty:45,oq:45,cq:0,diff:45,cp:247,dv:11115,whp:0,st:"Fully sold"},
-      {grn:"GRN-20250111-001",date:"10 Jan 2025",qty:50,oq:50,cq:0,diff:50,cp:249,dv:12450,whp:0,st:"Fully sold"},
-      {grn:"GRN-20250109-001",date:"12 Jan 2025",qty:40,oq:40,cq:39,diff:1,cp:251,dv:251,whp:0,st:"Active"},
-      {grn:"GRN-20250107-001",date:"14 Jan 2025",qty:45,oq:45,cq:45,diff:0,cp:251,dv:0,whp:0,st:"Active"},
-      {grn:"GRN-20250107-001",date:"15 Jan 2025",qty:60,oq:null,cq:60,diff:0,cp:251,dv:0,whp:5,st:"New GRN"},
+      {type:"GRN",grn:"GRN-20250115-001",date:"6 Jan 2025",qty:60,oq:4,cq:0,diff:4,cp:247,dv:988,whp:0,st:"Fully sold"},
+      {type:"GRN",grn:"GRN-20250113-001",date:"8 Jan 2025",qty:45,oq:45,cq:0,diff:45,cp:247,dv:11115,whp:0,st:"Fully sold"},
+      {type:"GRN",grn:"GRN-20250111-001",date:"10 Jan 2025",qty:50,oq:50,cq:0,diff:50,cp:249,dv:12450,whp:0,st:"Fully sold"},
+      {type:"GRN",grn:"GRN-20250109-001",date:"12 Jan 2025",qty:40,oq:40,cq:39,diff:1,cp:251,dv:251,whp:0,st:"Active"},
+      {type:"GRN",grn:"GRN-20250107-001",date:"14 Jan 2025",qty:45,oq:45,cq:45,diff:0,cp:251,dv:0,whp:0,st:"Active"},
+      {type:"GRN",grn:"GRN-20250107-001",date:"15 Jan 2025",qty:60,oq:null,cq:60,diff:0,cp:251,dv:0,whp:0,st:"Active"},
+      {type:"PRN",grn:"PRN_102012131-121",date:"15 Jan 2025",qty:-5,oq:null,cq:null,diff:-5,cp:249,dv:-1245,whp:0,st:"PRN"},
     ],
     pay:{dv:24804,prn:1245,net:23559,prnQty:5},
   },
@@ -179,11 +179,12 @@ const DATA = {
       {id:"FC002",name:"FC002 — Hyderabad",cp:249,whOb:80,itrOb:0,ob:80,grn:0,prn:0,ret:0,sales:26,cc:0,cb:54,intr:0,whCb:54,whPend:0,shelf:54},
     ],
     invoices:[
-      {grn:"GRN-20250115-001",date:"6 Jan 2025",qty:60,oq:4,cq:0,diff:4,cp:247,dv:988,whp:0,st:"Fully sold"},
-      {grn:"GRN-20250113-001",date:"8 Jan 2025",qty:45,oq:45,cq:0,diff:45,cp:247,dv:11115,whp:0,st:"Fully sold"},
-      {grn:"GRN-20250111-001",date:"10 Jan 2025",qty:50,oq:50,cq:8,diff:42,cp:249,dv:10458,whp:0,st:"Active"},
-      {grn:"GRN-20250109-001",date:"12 Jan 2025",qty:40,oq:40,cq:40,diff:0,cp:251,dv:0,whp:0,st:"Active"},
-      {grn:"GRN-20250107-001",date:"14 Jan 2025",qty:45,oq:null,cq:45,diff:0,cp:251,dv:0,whp:5,st:"New GRN"},
+      {type:"GRN",grn:"GRN-20250115-001",date:"6 Jan 2025",qty:60,oq:4,cq:0,diff:4,cp:247,dv:988,whp:0,st:"Fully sold"},
+      {type:"GRN",grn:"GRN-20250113-001",date:"8 Jan 2025",qty:45,oq:45,cq:0,diff:45,cp:247,dv:11115,whp:0,st:"Fully sold"},
+      {type:"GRN",grn:"GRN-20250111-001",date:"10 Jan 2025",qty:50,oq:50,cq:8,diff:42,cp:249,dv:10458,whp:0,st:"Active"},
+      {type:"GRN",grn:"GRN-20250109-001",date:"12 Jan 2025",qty:40,oq:40,cq:40,diff:0,cp:251,dv:0,whp:0,st:"Active"},
+      {type:"GRN",grn:"GRN-20250107-001",date:"14 Jan 2025",qty:45,oq:null,cq:45,diff:0,cp:251,dv:0,whp:5,st:"Active"},
+      {type:"PRN",grn:"PRN_102012131-121",date:"15 Jan 2025",qty:-5,oq:null,cq:null,diff:-5,cp:249,dv:-1245,whp:0,st:"PRN"},
     ],
     pay:{dv:22561,prn:1245,net:21316,prnQty:5},
   },
@@ -194,10 +195,11 @@ const DATA = {
       {id:"FC002",name:"FC002 — Hyderabad",cp:249,whOb:80,itrOb:0,ob:80,grn:0,prn:0,ret:0,sales:30,cc:0,cb:50,intr:0,whCb:50,whPend:0,shelf:50},
     ],
     invoices:[
-      {grn:"GRN-20250115-001",date:"6 Jan 2025",qty:60,oq:60,cq:0,diff:60,cp:247,dv:14820,whp:0,st:"Fully sold"},
-      {grn:"GRN-20250113-001",date:"8 Jan 2025",qty:45,oq:null,cq:0,diff:45,cp:247,dv:11115,whp:0,st:"New GRN"},
-      {grn:"GRN-20250111-001",date:"10 Jan 2025",qty:50,oq:null,cq:14,diff:36,cp:249,dv:8964,whp:0,st:"New GRN"},
-      {grn:"GRN-20250107-001",date:"14 Jan 2025",qty:45,oq:null,cq:45,diff:0,cp:251,dv:0,whp:5,st:"New GRN"},
+      {type:"GRN",grn:"GRN-20250115-001",date:"6 Jan 2025",qty:60,oq:60,cq:0,diff:60,cp:247,dv:14820,whp:0,st:"Fully sold"},
+      {type:"GRN",grn:"GRN-20250113-001",date:"8 Jan 2025",qty:45,oq:null,cq:0,diff:45,cp:247,dv:11115,whp:0,st:"Fully sold"},
+      {type:"GRN",grn:"GRN-20250111-001",date:"10 Jan 2025",qty:50,oq:null,cq:14,diff:36,cp:249,dv:8964,whp:0,st:"Active"},
+      {type:"GRN",grn:"GRN-20250107-001",date:"14 Jan 2025",qty:45,oq:null,cq:45,diff:0,cp:251,dv:0,whp:5,st:"Active"},
+      {type:"PRN",grn:"PRN_102012131-121",date:"15 Jan 2025",qty:-10,oq:null,cq:null,diff:-10,cp:249,dv:-2490,whp:0,st:"PRN"},
     ],
     pay:{dv:34899,prn:2490,net:32409,prnQty:10},
   },
@@ -208,8 +210,9 @@ const DATA = {
       {id:"FC002",name:"FC002 — Hyderabad",cp:249,whOb:50,itrOb:0,ob:50,grn:0,prn:0,ret:0,sales:50,cc:0,cb:50,intr:0,whCb:50,whPend:0,shelf:50},
     ],
     invoices:[
-      {grn:"Multiple GRNs (Oct–Dec)",date:"Oct–Dec 2024",qty:240,oq:null,cq:0,diff:240,cp:247,dv:59280,whp:0,st:"Fully sold"},
-      {grn:"Multiple GRNs (Jan)",date:"Jan 2025",qty:120,oq:null,cq:144,diff:36,cp:249,dv:8964,whp:5,st:"Active"},
+      {type:"GRN",grn:"Multiple GRNs (Oct–Dec)",date:"Oct–Dec 2024",qty:240,oq:null,cq:0,diff:240,cp:247,dv:59280,whp:0,st:"Fully sold"},
+      {type:"GRN",grn:"Multiple GRNs (Jan)",date:"Jan 2025",qty:120,oq:null,cq:144,diff:36,cp:249,dv:8964,whp:5,st:"Active"},
+      {type:"PRN",grn:"PRN (multiple)",date:"Jan 2025",qty:-15,oq:null,cq:null,diff:-15,cp:249,dv:-3735,whp:0,st:"PRN"},
     ],
     pay:{dv:68244,prn:3735,net:64509,prnQty:15},
   },
@@ -220,83 +223,77 @@ const DATA = {
       {id:"FC002",name:"FC002 — Hyderabad",cp:249,whOb:0,itrOb:0,ob:0,grn:0,prn:0,ret:0,sales:200,cc:0,cb:80,intr:0,whCb:80,whPend:0,shelf:80},
     ],
     invoices:[
-      {grn:"All 2026 GRNs",date:"Full year",qty:1440,oq:0,cq:266,diff:1174,cp:249,dv:292326,whp:5,st:"Active"},
+      {type:"GRN",grn:"All 2026 GRNs",date:"Full year",qty:1440,oq:0,cq:266,diff:1174,cp:249,dv:292326,whp:5,st:"Active"},
+      {type:"PRN",grn:"PRN (multiple)",date:"Full year",qty:-60,oq:null,cq:null,diff:-60,cp:249,dv:-14940,whp:0,st:"PRN"},
     ],
     pay:{dv:292326,prn:14940,net:277386,prnQty:60},
   },
 };
 
-let currentDK = 'daily';
-let currentDC = 'all';
-let currentDateLabel = 'Daily — 2025-01-15';
+let currentDK='daily',currentDC='all',currentDateLabel='Daily — 2025-01-15';
 
-function fmt(n){ return n===null||n===undefined?'—':Number(n).toLocaleString('en-IN'); }
+function fmt(n){return n===null||n===undefined?'—':Number(n).toLocaleString('en-IN');}
 
 function toggleDD(id){
-  document.querySelectorAll('.dd-panel').forEach(p=>{ if(p.id!==id+'-panel') p.classList.remove('open'); });
+  document.querySelectorAll('.dd-panel').forEach(p=>{if(p.id!==id+'-panel')p.classList.remove('open');});
   document.getElementById(id+'-panel').classList.toggle('open');
 }
-
 document.addEventListener('click',function(e){
-  if(!e.target.closest('.dropdown')) document.querySelectorAll('.dd-panel').forEach(p=>p.classList.remove('open'));
+  if(!e.target.closest('.dropdown'))document.querySelectorAll('.dd-panel').forEach(p=>p.classList.remove('open'));
 });
 
-function selectDate(dk, label, sub){
-  currentDK = dk;
-  currentDateLabel = label;
-  document.getElementById('date-label').textContent = label;
+function selectDate(dk,label,sub){
+  currentDK=dk;currentDateLabel=label;
+  document.getElementById('date-label').textContent=label;
   document.querySelectorAll('#dd-date-panel .dd-item').forEach(el=>{
     el.classList.remove('active');
-    const l = el.querySelector('.di-label');
-    if(l) l.textContent = l.textContent.replace(' ✓','');
+    const l=el.querySelector('.di-label');
+    if(l)l.textContent=l.textContent.replace(' ✓','');
   });
   event.currentTarget.classList.add('active');
-  event.currentTarget.querySelector('.di-label').textContent += ' ✓';
+  event.currentTarget.querySelector('.di-label').textContent+=' ✓';
   document.getElementById('dd-date-panel').classList.remove('open');
   render();
 }
 
 function applyCustom(){
-  const s = document.getElementById('cr-start').value;
-  const e = document.getElementById('cr-end').value;
-  if(!s||!e) return;
-  const label = s+' to '+e;
-  currentDK = 'daily'; // use daily data as placeholder
-  currentDateLabel = label;
-  document.getElementById('date-label').textContent = label;
+  const s=document.getElementById('cr-start').value;
+  const e=document.getElementById('cr-end').value;
+  if(!s||!e)return;
+  currentDK='daily';currentDateLabel=s+' to '+e;
+  document.getElementById('date-label').textContent=currentDateLabel;
   document.getElementById('dd-date-panel').classList.remove('open');
   render();
 }
 
-function selectDC(dc, label){
-  currentDC = dc;
-  document.getElementById('dc-label').textContent = label;
+function selectDC(dc,label){
+  currentDC=dc;
+  document.getElementById('dc-label').textContent=label;
   document.querySelectorAll('#dd-dc-panel .dd-item').forEach(el=>{
     el.classList.remove('active');
-    const l = el.querySelector('.di-label');
-    if(l) l.textContent = l.textContent.replace(' ✓','');
+    const l=el.querySelector('.di-label');
+    if(l)l.textContent=l.textContent.replace(' ✓','');
   });
   event.currentTarget.classList.add('active');
-  event.currentTarget.querySelector('.di-label').textContent += ' ✓';
+  event.currentTarget.querySelector('.di-label').textContent+=' ✓';
   document.getElementById('dd-dc-panel').classList.remove('open');
   render();
 }
 
 function render(){
-  const d = DATA[currentDK];
-  const rows = currentDC==='all' ? d.dcs : d.dcs.filter(r=>r.id===currentDC);
-  const T = rows.reduce((a,r)=>({
+  const d=DATA[currentDK];
+  const rows=currentDC==='all'?d.dcs:d.dcs.filter(r=>r.id===currentDC);
+  const T=rows.reduce((a,r)=>({
     whOb:a.whOb+r.whOb,itrOb:a.itrOb+r.itrOb,ob:a.ob+r.ob,
     grn:a.grn+r.grn,prn:a.prn+r.prn,ret:a.ret+r.ret,
-    sales:a.sales+r.sales,cc:a.cc+r.cc,
-    cb:a.cb+r.cb,intr:a.intr+r.intr,whCb:a.whCb+r.whCb,
-    whPend:a.whPend+r.whPend,shelf:a.shelf+r.shelf,
+    sales:a.sales+r.sales,cc:a.cc+r.cc,cb:a.cb+r.cb,
+    intr:a.intr+r.intr,whCb:a.whCb+r.whCb,whPend:a.whPend+r.whPend,shelf:a.shelf+r.shelf,
   }),{whOb:0,itrOb:0,ob:0,grn:0,prn:0,ret:0,sales:0,cc:0,cb:0,intr:0,whCb:0,whPend:0,shelf:0});
 
-  const tiles = currentDC==='all' ? d.tiles : {ob:T.ob,grn:T.grn,sales:T.sales,ret:T.ret,cb:T.cb,intr:T.intr,whp:T.whPend,shelf:T.shelf};
+  const tiles=currentDC==='all'?d.tiles:{ob:T.ob,grn:T.grn,sales:T.sales,ret:T.ret,cb:T.cb,intr:T.intr,whp:T.whPend,shelf:T.shelf};
 
   // Tiles
-  const tileData = [
+  document.getElementById('tiles').innerHTML=[
     {l:'Opening balance',v:tiles.ob,sub:'units at start',cls:'tile-default'},
     {l:'GRN received',v:tiles.grn,sub:'inward',cls:'tile-grn'},
     {l:'Sales',v:tiles.sales,sub:'sold',cls:'tile-default'},
@@ -305,74 +302,76 @@ function render(){
     {l:'In transit',v:tiles.intr,sub:'between DCs',cls:'tile-default'},
     {l:'WH pending',v:tiles.whp,sub:'PRN not picked up',cls:'tile-warn'},
     {l:'Net at shelf',v:tiles.shelf,sub:'available for sale',cls:'tile-shelf'},
-  ];
-  document.getElementById('tiles').innerHTML = tileData.map(t=>`
-    <div class="tile ${t.cls}">
-      <div class="tile-label">${t.l}</div>
-      <div class="tile-val">${fmt(t.v)}</div>
-      <div class="tile-sub">${t.sub}</div>
-    </div>`).join('');
+  ].map(t=>`<div class="tile ${t.cls}"><div class="tile-label">${t.l}</div><div class="tile-val">${fmt(t.v)}</div><div class="tile-sub">${t.sub}</div></div>`).join('');
 
   // DC table
-  const dcCols = ['Buying DC','CP','WH Opn Bal','InTr Opn','Opn Bal','GRN','PRN','Return (post pickup)','Sales','CC Adj','Closing Bal','In-Transit','WH Closing','WH Pending','Net at Shelf'];
-  let dcHTML = `<thead><tr>${dcCols.map((c,i)=>`<th class="${i===0?'thl':''}">${c}</th>`).join('')}</tr></thead><tbody>`;
+  let dcHTML=`<thead><tr>
+    <th class="thl">Buying DC</th><th>CP</th><th>WH Opn Bal</th><th>InTr Opn</th>
+    <th>Opn Bal</th><th>GRN</th><th>PRN</th><th>Return (post pickup)</th><th>Sales</th>
+    <th>CC Adj</th><th>Closing Bal</th><th>In-Transit</th><th>WH Closing</th>
+    <th>WH Pending</th><th>Net at Shelf</th>
+  </tr></thead><tbody>`;
   rows.forEach((r,i)=>{
-    dcHTML += `<tr class="${i%2?'alt':''}">
-      <td class="tdl c-bold">${r.name}</td>
-      <td>₹${r.cp}</td>
-      <td>${fmt(r.whOb)}</td>
-      <td>${r.itrOb||'—'}</td>
+    dcHTML+=`<tr class="${i%2?'alt':''}">
+      <td class="tdl c-bold">${r.name}</td><td>₹${r.cp}</td>
+      <td>${fmt(r.whOb)}</td><td>${r.itrOb||'—'}</td>
       <td class="c-bold">${fmt(r.ob)}</td>
       <td class="${r.grn?'c-grn':''}">${r.grn||'—'}</td>
       <td class="${r.prn?'c-warn':''}">${r.prn||'—'}</td>
-      <td>${r.ret||'—'}</td>
-      <td>${fmt(r.sales)}</td>
+      <td>${r.ret||'—'}</td><td>${fmt(r.sales)}</td>
       <td class="c-mut">${r.cc||'—'}</td>
       <td class="c-bold">${fmt(r.cb)}</td>
-      <td>${r.intr||'—'}</td>
-      <td>${fmt(r.whCb)}</td>
+      <td>${r.intr||'—'}</td><td>${fmt(r.whCb)}</td>
       <td class="${r.whPend?'c-warn':''}">${r.whPend||'—'}</td>
       <td class="c-info">${fmt(r.shelf)}</td>
     </tr>`;
   });
-  dcHTML += `<tr class="total">
-    <td class="tdl">Total</td><td>—</td>
+  dcHTML+=`<tr class="total"><td class="tdl">Total</td><td>—</td>
     ${[T.whOb,T.itrOb,T.ob,T.grn,T.prn,T.ret,T.sales,T.cc,T.cb,T.intr,T.whCb,T.whPend,T.shelf].map(v=>`<td>${v||'—'}</td>`).join('')}
   </tr></tbody>`;
-  document.getElementById('dc-table').innerHTML = dcHTML;
+  document.getElementById('dc-table').innerHTML=dcHTML;
 
-  // Invoice table
-  const STTAG = {'Fully sold':'tag-sold','Active':'tag-active','New GRN':'tag-new'};
-  let invHTML = `<thead><tr>
-    <th class="thl" style="width:28%">GRN / Invoice</th>
-    <th>Invoice date</th><th>GRN qty</th><th>Opening qty</th><th>Closing qty</th>
-    <th>Differential qty</th><th>GRN CP (₹)</th><th>Diff value (₹)</th>
+  // Invoice + PRN table
+  const STTAG={'Fully sold':'tag-sold','Active':'tag-active','New GRN':'tag-new','PRN':'tag-prn'};
+  let invHTML=`<thead><tr>
+    <th class="thl" style="width:12%">TXN Type</th>
+    <th class="thl" style="width:22%">GRN / PRN #</th>
+    <th>Invoice date</th><th>GRN/PRN qty</th>
+    <th>Opening qty</th><th>Closing qty</th>
+    <th>Differential qty</th><th>GRN/PRN CP (₹)</th><th>Diff value (₹)</th>
     <th style="color:#FAC775">WH pending</th>
   </tr></thead><tbody>`;
-  let iTot = {qty:0,oq:0,cq:0,diff:0,dv:0,whp:0};
+
+  let iTot={qty:0,diff:0,dv:0,whp:0};
   d.invoices.forEach((r,i)=>{
-    iTot.qty+=r.qty; iTot.oq+=(r.oq||0); iTot.cq+=r.cq; iTot.diff+=r.diff; iTot.dv+=r.dv; iTot.whp+=r.whp;
-    invHTML += `<tr class="${i%2?'alt':''}">
-      <td class="tdl"><span class="tag ${STTAG[r.st]}">${r.st}</span> <span style="font-size:11px;color:#666">${r.grn}</span></td>
-      <td>${r.date}</td><td>${r.qty}</td>
-      <td class="c-mut">${r.oq===null?'NA':r.oq}</td>
-      <td>${r.cq}</td>
-      <td class="${r.diff>0?'c-grn':'c-mut'}">${r.diff||'—'}</td>
+    const isPRN=r.type==='PRN';
+    iTot.qty+=r.qty; iTot.diff+=r.diff; iTot.dv+=r.dv; iTot.whp+=r.whp;
+    invHTML+=`<tr class="${isPRN?'prn-row':i%2?'alt':''}">
+      <td class="tdl"><span class="tag ${STTAG[r.st]}">${r.type}</span></td>
+      <td class="tdl" style="font-size:11px;color:#555">${r.grn}</td>
+      <td>${r.date}</td>
+      <td class="${isPRN?'c-neg':''}">${fmt(r.qty)}</td>
+      <td class="c-mut">${r.oq===null?'NA':fmt(r.oq)}</td>
+      <td>${r.cq===null?'NA':fmt(r.cq)}</td>
+      <td class="${isPRN?'c-neg':r.diff>0?'c-grn':'c-mut'}">${fmt(r.diff)}</td>
       <td style="color:#888">${r.cp}</td>
-      <td class="${r.dv>0?'c-grn':'c-mut'}">${fmt(r.dv)||'—'}</td>
+      <td class="${isPRN?'c-neg':r.dv>0?'c-grn':'c-mut'}">${fmt(r.dv)}</td>
       <td class="${r.whp?'c-warn':'c-mut'}">${r.whp||'—'}</td>
     </tr>`;
   });
-  invHTML += `<tr class="total"><td class="tdl">Total</td>
-    <td>—</td><td>${iTot.qty}</td><td>${iTot.oq}</td><td>${iTot.cq}</td>
-    <td class="c-grn">${iTot.diff}</td><td>—</td>
+  invHTML+=`<tr class="total">
+    <td class="tdl" colspan="2">Total</td><td>—</td>
+    <td class="${iTot.qty>0?'':'c-neg'}">${fmt(iTot.qty)}</td>
+    <td>—</td><td>—</td>
+    <td class="c-grn">${fmt(iTot.diff)}</td>
+    <td>—</td>
     <td class="c-grn">${fmt(iTot.dv)}</td>
     <td class="${iTot.whp?'c-warn':''}">${iTot.whp||'—'}</td>
   </tr></tbody>`;
-  document.getElementById('inv-table').innerHTML = invHTML;
+  document.getElementById('inv-table').innerHTML=invHTML;
 
   // Payable
-  document.getElementById('pay-card').innerHTML = `
+  document.getElementById('pay-card').innerHTML=`
     <div style="font-size:13px;font-weight:600;color:#111;margin-bottom:12px">FC001 · SKU2047 · ${currentDateLabel}</div>
     <div class="pay-row"><span class="pay-label">Differential value (${iTot.diff} units × GRN CP)</span><span class="pay-val">₹${fmt(d.pay.dv)}</span></div>
     <div class="pay-row"><span class="pay-label">PRN deduction — ${d.pay.prnQty} units × ₹${rows[0]?.cp||249} (post pickup only)</span><span class="pay-val red">− ₹${fmt(d.pay.prn)}</span></div>
