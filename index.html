@@ -3,21 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BB SOR — Vendor Dashboard</title>
+<title>BB — Vendor Portal</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',system-ui,sans-serif;font-size:13px;color:#1a1a1a;background:#f5f6f7;min-height:100vh}
-.page{max-width:1400px;margin:0 auto;padding:1.5rem}
-.topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:1rem 1.25rem;background:#fff;border-radius:12px;border:0.5px solid #e0e0e0;margin-bottom:1rem;flex-wrap:wrap}
-.brand{font-size:10px;color:#999;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px}
-.page-title{font-size:18px;font-weight:600;color:#111}
-.page-sub{font-size:12px;color:#888;margin-top:2px}
-.filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+body{font-family:system-ui,sans-serif;font-size:13px;color:#1a1a1a;background:#f5f6f7;min-height:100vh}
+.page{max-width:1440px;margin:0 auto;padding:1.25rem}
+
+/* Top bar */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0.85rem 1.25rem;background:#1F3864;border-radius:12px;margin-bottom:1rem;flex-wrap:wrap}
+.topbar-left{display:flex;flex-direction:column;gap:2px}
+.portal-brand{font-size:10px;color:#9FE1CB;letter-spacing:0.1em;text-transform:uppercase;font-weight:500}
+.portal-title{font-size:16px;font-weight:600;color:#fff}
+.topbar-right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+/* OR/SOR toggle */
+.model-toggle{display:flex;background:rgba(255,255,255,0.1);border-radius:8px;padding:2px}
+.model-btn{font-size:12px;font-weight:500;padding:5px 14px;border-radius:6px;cursor:pointer;color:rgba(255,255,255,0.6);border:none;background:transparent;font-family:inherit;transition:all 0.15s}
+.model-btn.active{background:#fff;color:#1F3864}
+
 .badge-live{font-size:11px;font-weight:500;padding:4px 10px;border-radius:20px;background:#e6f7f0;color:#0a7a4a;display:flex;align-items:center;gap:5px}
 .dot{width:6px;height:6px;border-radius:50%;background:#0a7a4a}
-.btn-dl{font-size:12px;padding:6px 14px;border:0.5px solid #ccc;border-radius:8px;background:#fff;cursor:pointer;display:flex;align-items:center;gap:5px;color:#333;font-family:inherit}
+.btn-dl{font-size:12px;padding:6px 14px;border:0.5px solid rgba(255,255,255,0.3);border-radius:8px;background:rgba(255,255,255,0.1);cursor:pointer;color:#fff;font-family:inherit}
+
+/* Dropdowns */
 .dropdown{position:relative;display:inline-block}
-.dd-btn{font-size:12px;padding:6px 10px;border:0.5px solid #ddd;border-radius:8px;background:#fff;cursor:pointer;display:flex;align-items:center;gap:8px;color:#333;min-width:180px;font-family:inherit}
+.dd-btn{font-size:12px;padding:6px 10px;border:0.5px solid #ddd;border-radius:8px;background:#fff;cursor:pointer;display:flex;align-items:center;gap:8px;color:#333;font-family:inherit}
+.dd-btn-white{font-size:12px;padding:5px 10px;border:0.5px solid rgba(255,255,255,0.3);border-radius:8px;background:rgba(255,255,255,0.1);cursor:pointer;display:flex;align-items:center;gap:8px;color:#fff;font-family:inherit;min-width:160px}
 .dd-panel{position:absolute;top:calc(100% + 4px);left:0;z-index:300;background:#fff;border:0.5px solid #ddd;border-radius:10px;min-width:220px;box-shadow:0 8px 24px rgba(0,0,0,0.1);display:none}
 .dd-panel.open{display:block}
 .dd-item{padding:8px 14px;cursor:pointer;border-bottom:0.5px solid #f0f0f0}
@@ -35,9 +46,22 @@ body{font-family:'DM Sans',system-ui,sans-serif;font-size:13px;color:#1a1a1a;bac
 .cr-field input{width:100%;font-size:12px;padding:5px 8px;border:0.5px solid #ddd;border-radius:6px;font-family:inherit;outline:none}
 .cr-field input:focus{border-color:#0a7a4a}
 .cr-apply{width:100%;font-size:12px;padding:7px;border:none;border-radius:6px;background:#0a7a4a;color:#fff;cursor:pointer;font-family:inherit;font-weight:500}
+
+/* Sub bar */
+.subbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0.6rem 0;margin-bottom:1rem;flex-wrap:wrap;border-bottom:1.5px solid #e0e0e0}
+.subbar-left{display:flex;align-items:center;gap:8px}
+.supplier-name{font-size:15px;font-weight:600;color:#111}
+.supplier-model-badge{font-size:11px;padding:2px 8px;border-radius:20px;background:#e6f7f0;color:#0a7a4a;font-weight:500}
+
+/* Tabs */
+.tabs{display:flex;gap:0;border-bottom:1.5px solid #e0e0e0;margin-bottom:1rem}
+.tab{font-size:13px;font-weight:500;padding:8px 20px;cursor:pointer;color:#888;border-bottom:2.5px solid transparent;margin-bottom:-1.5px}
+.tab:hover{color:#333}
+.tab.active{color:#0a7a4a;border-bottom-color:#0a7a4a}
+
 .sec-label{font-size:10px;font-weight:600;color:#999;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px}
 .card{background:#fff;border-radius:12px;border:0.5px solid #e0e0e0;padding:1.25rem;margin-bottom:1rem}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:1rem}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px;margin-bottom:1rem}
 .tile{border-radius:10px;padding:12px 14px}
 .tile-label{font-size:11px;color:#777;margin-bottom:5px}
 .tile-val{font-size:22px;font-weight:600;line-height:1}
@@ -46,6 +70,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;font-size:13px;color:#1a1a1a;bac
 .tile-grn{background:#e6f7f0}.tile-grn .tile-val,.tile-grn .tile-label{color:#0a7a4a}
 .tile-warn{background:#fff8ee}.tile-warn .tile-val,.tile-warn .tile-label{color:#c47a0a}
 .tile-shelf{background:#e8f4fb}.tile-shelf .tile-val,.tile-shelf .tile-label{color:#1565a8}
+
 table{width:100%;border-collapse:collapse}
 th{background:#1F3864;color:#fff;font-size:10px;font-weight:500;padding:8px 9px;text-align:right;white-space:nowrap;letter-spacing:0.03em}
 th.thl{text-align:left}
@@ -54,18 +79,23 @@ td.tdl{text-align:left}
 tr.alt td{background:#fafafa}
 tr.total td{background:#f0f0f0;font-weight:600;color:#111}
 tr.prn-row td{background:#fff8ee}
+tr.warn-row td{background:#fff3f3}
 td.c-grn{color:#0a7a4a;font-weight:500}
 td.c-warn{color:#c47a0a;font-weight:500}
 td.c-info{color:#1565a8;font-weight:500}
 td.c-mut{color:#bbb}
 td.c-bold{font-weight:600;color:#111}
-td.c-red{color:#c0392b;font-weight:500}
 td.c-neg{color:#c0392b;font-weight:600}
+td.c-red{color:#c0392b;font-weight:500}
+td.clickable{color:#0a7a4a;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
 .tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:20px;font-weight:500;white-space:nowrap}
 .tag-sold{background:#f1efe8;color:#5f5e5a}
 .tag-active{background:#eaf3de;color:#3b6d11}
-.tag-new{background:#e6f1fb;color:#185fa5}
 .tag-prn{background:#fff0e0;color:#854F0B}
+.tag-risk-g{background:#eaf3de;color:#3b6d11;font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500}
+.tag-risk-a{background:#fff8ee;color:#c47a0a;font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500}
+.tag-risk-r{background:#fdecea;color:#c0392b;font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500}
+.tag-risk-n{background:#f0f0f0;color:#999;font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500}
 .tbl-wrap{overflow-x:auto;border:0.5px solid #e0e0e0;border-radius:10px;overflow:hidden}
 .pay-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid #f0f0f0;font-size:12px}
 .pay-row:last-child{border-bottom:none;padding-top:12px}
@@ -75,33 +105,43 @@ td.c-neg{color:#c0392b;font-weight:600}
 .pay-net{font-size:15px;font-weight:600}
 .pay-net-val{font-size:20px;font-weight:600;color:#0a7a4a}
 .btns{display:flex;flex-direction:column;gap:8px}
-.btn-csv{font-size:12px;padding:9px 16px;border:0.5px solid #ddd;border-radius:8px;background:#fff;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;color:#333}
-.btn-report{font-size:12px;padding:9px 16px;border:none;border-radius:8px;background:#0a7a4a;color:#fff;cursor:pointer;font-family:inherit;font-weight:500;display:flex;align-items:center;gap:5px}
+.btn-csv{font-size:12px;padding:9px 16px;border:0.5px solid #ddd;border-radius:8px;background:#fff;cursor:pointer;font-family:inherit}
+.btn-report{font-size:12px;padding:9px 16px;border:none;border-radius:8px;background:#0a7a4a;color:#fff;cursor:pointer;font-family:inherit;font-weight:500}
 .pay-wrap{display:flex;gap:12px;align-items:flex-start}
 .pay-card{flex:1}
 .footer-note{font-size:11px;color:#aaa;margin-top:10px}
+.back-btn{font-size:12px;color:#0a7a4a;cursor:pointer;margin-bottom:12px;font-weight:500}
+.back-btn:hover{text-decoration:underline}
+.sku-row-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;flex-wrap:wrap}
+.sku-badge{font-size:11px;padding:3px 10px;border-radius:20px;background:#e6f7f0;color:#0a7a4a;font-weight:500}
 </style>
 </head>
 <body>
 <div class="page">
 
+<!-- TOP BAR -->
 <div class="topbar">
-  <div>
-    <div class="brand">BB SOR — Vendor portal</div>
-    <div class="page-title">Steel Water Bottle 1L</div>
-    <div class="page-sub">SKU2047 · Decent Plastic SOR · PAN India</div>
+  <div class="topbar-left">
+    <div class="portal-brand">BigBasket</div>
+    <div class="portal-title">Vendor Portal</div>
   </div>
-  <div class="filters">
+  <div class="topbar-right">
+    <!-- OR / SOR toggle -->
+    <div class="model-toggle">
+      <button class="model-btn" id="btn-or" onclick="switchModel('OR')">OR</button>
+      <button class="model-btn active" id="btn-sor" onclick="switchModel('SOR')">BB SOR</button>
+    </div>
+    <!-- Date range -->
     <div class="dropdown" id="dd-date">
-      <button class="dd-btn" onclick="toggleDD('dd-date')">
-        <span id="date-label">Daily — 2025-01-15</span><span style="color:#aaa">▾</span>
+      <button class="dd-btn-white" onclick="toggleDD('dd-date')">
+        <span id="date-label">Daily — 2025-01-15</span><span style="color:rgba(255,255,255,0.5)">▾</span>
       </button>
       <div class="dd-panel" id="dd-date-panel">
-        <div class="dd-item active" onclick="selectDate('daily','Daily — 2025-01-15','2025-01-15')"><div class="di-label">Daily — 2025-01-15 ✓</div><div class="di-sub">Single day snapshot</div></div>
-        <div class="dd-item" onclick="selectDate('last7','Last 7 days','9–15 Jan 2025')"><div class="di-label">Last 7 days</div><div class="di-sub">9–15 Jan 2025</div></div>
-        <div class="dd-item" onclick="selectDate('last30','Last 30 days','Dec 16 – Jan 15')"><div class="di-label">Last 30 days</div><div class="di-sub">Dec 16 – Jan 15</div></div>
-        <div class="dd-item" onclick="selectDate('last3m','Last 3 months','Oct – Jan 2025')"><div class="di-label">Last 3 months</div><div class="di-sub">Oct – Jan 2025</div></div>
-        <div class="dd-item" onclick="selectDate('y2026','2026 overall','Jan – Dec 2026')"><div class="di-label">2026 overall</div><div class="di-sub">Jan – Dec 2026</div></div>
+        <div class="dd-item active" onclick="selectDate('daily','Daily — 2025-01-15')"><div class="di-label">Daily — 2025-01-15 ✓</div><div class="di-sub">Single day snapshot</div></div>
+        <div class="dd-item" onclick="selectDate('last7','Last 7 days')"><div class="di-label">Last 7 days</div><div class="di-sub">9–15 Jan 2025</div></div>
+        <div class="dd-item" onclick="selectDate('last30','Last 30 days')"><div class="di-label">Last 30 days</div><div class="di-sub">Dec 16 – Jan 15</div></div>
+        <div class="dd-item" onclick="selectDate('last3m','Last 3 months')"><div class="di-label">Last 3 months</div><div class="di-sub">Oct – Jan 2025</div></div>
+        <div class="dd-item" onclick="selectDate('y2026','2026 overall')"><div class="di-label">2026 overall</div><div class="di-sub">Jan – Dec 2026</div></div>
         <div class="custom-range">
           <div class="cr-title">Custom date range</div>
           <div class="cr-row">
@@ -112,125 +152,175 @@ td.c-neg{color:#c0392b;font-weight:600}
         </div>
       </div>
     </div>
-    <div class="dropdown" id="dd-dc">
-      <button class="dd-btn" onclick="toggleDD('dd-dc')" style="min-width:160px">
-        <span id="dc-label">All DCs</span><span style="color:#aaa">▾</span>
-      </button>
-      <div class="dd-panel" id="dd-dc-panel">
-        <div class="dd-item active" onclick="selectDC('all','All DCs')"><div class="di-label">All DCs ✓</div></div>
-        <div class="dd-item" onclick="selectDC('FC001','FC001 — Bangalore')"><div class="di-label">FC001 — Bangalore</div><div class="di-sub">Primary buying DC</div></div>
-        <div class="dd-item" onclick="selectDC('FC002','FC002 — Hyderabad')"><div class="di-label">FC002 — Hyderabad</div><div class="di-sub">Secondary DC</div></div>
-      </div>
-    </div>
     <span class="badge-live"><span class="dot"></span>D-1</span>
     <button class="btn-dl">↓ Download</button>
   </div>
 </div>
 
-<div class="sec-label">Summary</div>
-<div class="tiles" id="tiles"></div>
-
-<div class="card">
-  <div class="sec-label">Stock movement by DC</div>
-  <div class="tbl-wrap"><table id="dc-table"></table></div>
+<!-- SUB BAR: Supplier selector -->
+<div class="subbar">
+  <div class="subbar-left">
+    <div class="dropdown" id="dd-supplier">
+      <button class="dd-btn" onclick="toggleDD('dd-supplier')" style="min-width:200px;font-size:14px;font-weight:600;color:#111;border:none;background:transparent;padding:0">
+        <span id="supplier-label">Decent Plastic SOR</span><span style="color:#aaa;font-size:12px;margin-left:4px">▾</span>
+      </button>
+      <div class="dd-panel" id="dd-supplier-panel">
+        <div class="dd-item active" onclick="selectSupplier('decent','Decent Plastic SOR')"><div class="di-label">Decent Plastic SOR ✓</div><div class="di-sub">Active supplier · BB SOR</div></div>
+        <div class="dd-item" onclick="selectSupplier('tata','TATA Unistore Ltd')"><div class="di-label">TATA Unistore Ltd</div><div class="di-sub">Active supplier · BB SOR</div></div>
+        <div class="dd-item" onclick="selectSupplier('nova','Nova Housewares Pvt Ltd')"><div class="di-label">Nova Housewares Pvt Ltd</div><div class="di-sub">Active supplier · BB SOR</div></div>
+        <div class="dd-item" onclick="selectSupplier('steel','Steel Craft Industries')"><div class="di-label">Steel Craft Industries</div><div class="di-sub">Active supplier · BB SOR</div></div>
+      </div>
+    </div>
+    <span class="supplier-model-badge" id="model-badge">BB SOR</span>
+  </div>
 </div>
 
-<div class="card">
-  <div class="sec-label">Invoice & transaction detail — FIFO</div>
-  <div class="tbl-wrap"><table id="inv-table"></table></div>
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" id="tab-supplier" onclick="switchTab('supplier')">Supplier view</div>
+  <div class="tab" id="tab-sku" onclick="switchTab('sku')">SKU view</div>
 </div>
 
-<div class="card">
-  <div class="sec-label">Payable summary</div>
-  <div class="pay-wrap">
-    <div class="pay-card" id="pay-card"></div>
-    <div class="btns">
-      <button class="btn-csv">📄 Export CSV</button>
-      <button class="btn-report">↓ Full report</button>
+<!-- SUPPLIER VIEW -->
+<div id="view-supplier">
+  <div class="sec-label">Summary</div>
+  <div class="tiles" id="sup-tiles"></div>
+  <div class="card">
+    <div class="sec-label">SKU overview — click any SKU to drill down</div>
+    <div class="tbl-wrap"><table id="sku-table"></table></div>
+  </div>
+  <div class="card">
+    <div class="sec-label">Payable summary</div>
+    <div class="pay-wrap">
+      <div class="pay-card" id="sup-pay"></div>
+      <div class="btns">
+        <button class="btn-csv">📄 Export CSV</button>
+        <button class="btn-report">↓ Full report</button>
+      </div>
+    </div>
+    <div class="footer-note">PRN deducted only after physical handover · Data as of D-1</div>
+  </div>
+</div>
+
+<!-- SKU VIEW -->
+<div id="view-sku" style="display:none">
+  <div class="back-btn" onclick="goBack()">← Back to supplier view</div>
+  <div class="sku-row-header">
+    <div style="font-size:16px;font-weight:600;color:#111" id="sku-title">Steel Water Bottle 1L</div>
+    <span class="sku-badge" id="sku-code-badge">SKU2047</span>
+    <div class="dropdown" id="dd-dc">
+      <button class="dd-btn" onclick="toggleDD('dd-dc')" style="min-width:140px">
+        <span id="dc-label">All DCs</span><span style="color:#aaa">▾</span>
+      </button>
+      <div class="dd-panel" id="dd-dc-panel">
+        <div class="dd-item active" onclick="selectDC('all','All DCs')"><div class="di-label">All DCs ✓</div></div>
+        <div class="dd-item" onclick="selectDC('FC001','FC001 — Bangalore')"><div class="di-label">FC001 — Bangalore</div></div>
+        <div class="dd-item" onclick="selectDC('FC002','FC002 — Hyderabad')"><div class="di-label">FC002 — Hyderabad</div></div>
+      </div>
     </div>
   </div>
-  <div class="footer-note">PRN deducted only after physical handover · Data as of D-1</div>
+  <div class="sec-label">Summary</div>
+  <div class="tiles" id="sku-tiles"></div>
+  <div class="card">
+    <div class="sec-label">Stock movement by DC</div>
+    <div class="tbl-wrap"><table id="dc-table"></table></div>
+  </div>
+  <div class="card">
+    <div class="sec-label">Invoice & transaction detail — FIFO</div>
+    <div class="tbl-wrap"><table id="inv-table"></table></div>
+  </div>
+  <div class="card">
+    <div class="sec-label">Payable summary</div>
+    <div class="pay-wrap">
+      <div class="pay-card" id="sku-pay"></div>
+      <div class="btns">
+        <button class="btn-csv">📄 Export CSV</button>
+        <button class="btn-report">↓ Full report</button>
+      </div>
+    </div>
+    <div class="footer-note">PRN deducted only after physical handover · Data as of D-1</div>
+  </div>
 </div>
 
 </div>
 <script>
-const DATA = {
-  daily:{
-    tiles:{ob:259,grn:60,sales:117,ret:3,cb:197,intr:0,whp:5,shelf:192},
-    dcs:[
-      {id:"FC001",name:"FC001 — Bangalore",cp:249,whOb:179,itrOb:0,ob:179,grn:60,prn:5,ret:3,sales:95,cc:1,cb:139,intr:0,whCb:139,whPend:5,shelf:134},
-      {id:"FC002",name:"FC002 — Hyderabad",cp:249,whOb:80,itrOb:0,ob:80,grn:0,prn:0,ret:0,sales:22,cc:0,cb:58,intr:0,whCb:58,whPend:0,shelf:58},
-    ],
-    invoices:[
-      {type:"GRN",grn:"GRN-20250115-001",date:"6 Jan 2025",qty:60,oq:4,cq:0,diff:4,cp:247,dv:988,whp:0,st:"Fully sold"},
-      {type:"GRN",grn:"GRN-20250113-001",date:"8 Jan 2025",qty:45,oq:45,cq:0,diff:45,cp:247,dv:11115,whp:0,st:"Fully sold"},
-      {type:"GRN",grn:"GRN-20250111-001",date:"10 Jan 2025",qty:50,oq:50,cq:0,diff:50,cp:249,dv:12450,whp:0,st:"Fully sold"},
-      {type:"GRN",grn:"GRN-20250109-001",date:"12 Jan 2025",qty:40,oq:40,cq:39,diff:1,cp:251,dv:251,whp:0,st:"Active"},
-      {type:"GRN",grn:"GRN-20250107-001",date:"14 Jan 2025",qty:45,oq:45,cq:45,diff:0,cp:251,dv:0,whp:0,st:"Active"},
-      {type:"GRN",grn:"GRN-20250107-001",date:"15 Jan 2025",qty:60,oq:null,cq:60,diff:0,cp:251,dv:0,whp:0,st:"Active"},
-      {type:"PRN",grn:"PRN_102012131-121",date:"15 Jan 2025",qty:-5,oq:null,cq:null,diff:-5,cp:249,dv:-1245,whp:0,st:"PRN"},
-    ],
-    pay:{dv:24804,prn:1245,net:23559,prnQty:5},
-  },
-  last7:{
-    tiles:{ob:220,grn:99,sales:162,ret:7,cb:159,intr:0,whp:5,shelf:154},
-    dcs:[
-      {id:"FC001",name:"FC001 — Bangalore",cp:249,whOb:140,itrOb:0,ob:140,grn:99,prn:5,ret:7,sales:136,cc:2,cb:100,intr:0,whCb:100,whPend:5,shelf:95},
-      {id:"FC002",name:"FC002 — Hyderabad",cp:249,whOb:80,itrOb:0,ob:80,grn:0,prn:0,ret:0,sales:26,cc:0,cb:54,intr:0,whCb:54,whPend:0,shelf:54},
-    ],
-    invoices:[
-      {type:"GRN",grn:"GRN-20250115-001",date:"6 Jan 2025",qty:60,oq:4,cq:0,diff:4,cp:247,dv:988,whp:0,st:"Fully sold"},
-      {type:"GRN",grn:"GRN-20250113-001",date:"8 Jan 2025",qty:45,oq:45,cq:0,diff:45,cp:247,dv:11115,whp:0,st:"Fully sold"},
-      {type:"GRN",grn:"GRN-20250111-001",date:"10 Jan 2025",qty:50,oq:50,cq:8,diff:42,cp:249,dv:10458,whp:0,st:"Active"},
-      {type:"GRN",grn:"GRN-20250109-001",date:"12 Jan 2025",qty:40,oq:40,cq:40,diff:0,cp:251,dv:0,whp:0,st:"Active"},
-      {type:"GRN",grn:"GRN-20250107-001",date:"14 Jan 2025",qty:45,oq:null,cq:45,diff:0,cp:251,dv:0,whp:5,st:"Active"},
-      {type:"PRN",grn:"PRN_102012131-121",date:"15 Jan 2025",qty:-5,oq:null,cq:null,diff:-5,cp:249,dv:-1245,whp:0,st:"PRN"},
-    ],
-    pay:{dv:22561,prn:1245,net:21316,prnQty:5},
-  },
-  last30:{
-    tiles:{ob:180,grn:180,sales:198,ret:12,cb:166,intr:2,whp:5,shelf:159},
-    dcs:[
-      {id:"FC001",name:"FC001 — Bangalore",cp:249,whOb:100,itrOb:2,ob:102,grn:180,prn:10,ret:12,sales:168,cc:3,cb:109,intr:2,whCb:107,whPend:5,shelf:100},
-      {id:"FC002",name:"FC002 — Hyderabad",cp:249,whOb:80,itrOb:0,ob:80,grn:0,prn:0,ret:0,sales:30,cc:0,cb:50,intr:0,whCb:50,whPend:0,shelf:50},
-    ],
-    invoices:[
-      {type:"GRN",grn:"GRN-20250115-001",date:"6 Jan 2025",qty:60,oq:60,cq:0,diff:60,cp:247,dv:14820,whp:0,st:"Fully sold"},
-      {type:"GRN",grn:"GRN-20250113-001",date:"8 Jan 2025",qty:45,oq:null,cq:0,diff:45,cp:247,dv:11115,whp:0,st:"Fully sold"},
-      {type:"GRN",grn:"GRN-20250111-001",date:"10 Jan 2025",qty:50,oq:null,cq:14,diff:36,cp:249,dv:8964,whp:0,st:"Active"},
-      {type:"GRN",grn:"GRN-20250107-001",date:"14 Jan 2025",qty:45,oq:null,cq:45,diff:0,cp:251,dv:0,whp:5,st:"Active"},
-      {type:"PRN",grn:"PRN_102012131-121",date:"15 Jan 2025",qty:-10,oq:null,cq:null,diff:-10,cp:249,dv:-2490,whp:0,st:"PRN"},
-    ],
-    pay:{dv:34899,prn:2490,net:32409,prnQty:10},
-  },
-  last3m:{
-    tiles:{ob:120,grn:360,sales:294,ret:18,cb:192,intr:0,whp:5,shelf:187},
-    dcs:[
-      {id:"FC001",name:"FC001 — Bangalore",cp:249,whOb:70,itrOb:0,ob:70,grn:360,prn:15,ret:18,sales:244,cc:5,cb:142,intr:0,whCb:142,whPend:5,shelf:137},
-      {id:"FC002",name:"FC002 — Hyderabad",cp:249,whOb:50,itrOb:0,ob:50,grn:0,prn:0,ret:0,sales:50,cc:0,cb:50,intr:0,whCb:50,whPend:0,shelf:50},
-    ],
-    invoices:[
-      {type:"GRN",grn:"Multiple GRNs (Oct–Dec)",date:"Oct–Dec 2024",qty:240,oq:null,cq:0,diff:240,cp:247,dv:59280,whp:0,st:"Fully sold"},
-      {type:"GRN",grn:"Multiple GRNs (Jan)",date:"Jan 2025",qty:120,oq:null,cq:144,diff:36,cp:249,dv:8964,whp:5,st:"Active"},
-      {type:"PRN",grn:"PRN (multiple)",date:"Jan 2025",qty:-15,oq:null,cq:null,diff:-15,cp:249,dv:-3735,whp:0,st:"PRN"},
-    ],
-    pay:{dv:68244,prn:3735,net:64509,prnQty:15},
-  },
-  y2026:{
-    tiles:{ob:0,grn:1440,sales:1198,ret:72,cb:266,intr:0,whp:5,shelf:261},
-    dcs:[
-      {id:"FC001",name:"FC001 — Bangalore",cp:249,whOb:0,itrOb:0,ob:0,grn:1440,prn:60,ret:72,sales:998,cc:20,cb:186,intr:0,whCb:186,whPend:5,shelf:181},
-      {id:"FC002",name:"FC002 — Hyderabad",cp:249,whOb:0,itrOb:0,ob:0,grn:0,prn:0,ret:0,sales:200,cc:0,cb:80,intr:0,whCb:80,whPend:0,shelf:80},
-    ],
-    invoices:[
-      {type:"GRN",grn:"All 2026 GRNs",date:"Full year",qty:1440,oq:0,cq:266,diff:1174,cp:249,dv:292326,whp:5,st:"Active"},
-      {type:"PRN",grn:"PRN (multiple)",date:"Full year",qty:-60,oq:null,cq:null,diff:-60,cp:249,dv:-14940,whp:0,st:"PRN"},
-    ],
-    pay:{dv:292326,prn:14940,net:277386,prnQty:60},
-  },
+// ── Data ─────────────────────────────────────────────────────────────────────
+const ZERO_SKU_DATA = {
+  daily:{tiles:{ob:0,grn:0,sales:0,ret:0,cb:0,intr:0,whp:0,shelf:0},dcs:[],invoices:[],pay:{dv:0,prn:0,net:0,prnQty:0}},
+  last7:{tiles:{ob:0,grn:0,sales:0,ret:0,cb:0,intr:0,whp:0,shelf:0},dcs:[],invoices:[],pay:{dv:0,prn:0,net:0,prnQty:0}},
+  last30:{tiles:{ob:0,grn:0,sales:0,ret:0,cb:0,intr:0,whp:0,shelf:0},dcs:[],invoices:[],pay:{dv:0,prn:0,net:0,prnQty:0}},
+  last3m:{tiles:{ob:0,grn:0,sales:0,ret:0,cb:0,intr:0,whp:0,shelf:0},dcs:[],invoices:[],pay:{dv:0,prn:0,net:0,prnQty:0}},
+  y2026:{tiles:{ob:0,grn:0,sales:0,ret:0,cb:0,intr:0,whp:0,shelf:0},dcs:[],invoices:[],pay:{dv:0,prn:0,net:0,prnQty:0}},
 };
 
-let currentDK='daily',currentDC='all',currentDateLabel='Daily — 2025-01-15';
+function mkD(ob,grn,sales,ret,cb,intr,whp,shelf,dcs,invoices,pay){
+  return {tiles:{ob,grn,sales,ret,cb,intr,whp,shelf},dcs,invoices,pay};
+}
+
+const SUPPLIERS = {
+  decent:{
+    name:"Decent Plastic SOR",
+    skus:{
+      SKU2047:{
+        name:"Steel Water Bottle 1L",code:"SKU2047",
+        risk:{sellThrough:72,daysStock:28,risk:'green',riskLabel:'On track'},
+        data:{
+          daily: mkD(259,60,117,3,197,0,5,192,
+            [{id:"FC001",name:"FC001 — Bangalore",cp:249,whOb:179,itrOb:0,ob:179,grn:60,prn:5,ret:3,sales:95,cc:1,cb:139,intr:0,whCb:139,whPend:5,shelf:134},
+             {id:"FC002",name:"FC002 — Hyderabad",cp:249,whOb:80,itrOb:0,ob:80,grn:0,prn:0,ret:0,sales:22,cc:0,cb:58,intr:0,whCb:58,whPend:0,shelf:58}],
+            [{type:"GRN",grn:"GRN-20250115-001",date:"6 Jan 2025",qty:60,oq:4,cq:0,diff:4,cp:247,dv:988,whp:0,st:"Fully sold"},
+             {type:"GRN",grn:"GRN-20250113-001",date:"8 Jan 2025",qty:45,oq:45,cq:0,diff:45,cp:247,dv:11115,whp:0,st:"Fully sold"},
+             {type:"GRN",grn:"GRN-20250111-001",date:"10 Jan 2025",qty:50,oq:50,cq:0,diff:50,cp:249,dv:12450,whp:0,st:"Fully sold"},
+             {type:"GRN",grn:"GRN-20250109-001",date:"12 Jan 2025",qty:40,oq:40,cq:39,diff:1,cp:251,dv:251,whp:0,st:"Active"},
+             {type:"GRN",grn:"GRN-20250107-001",date:"14 Jan 2025",qty:45,oq:45,cq:45,diff:0,cp:251,dv:0,whp:0,st:"Active"},
+             {type:"GRN",grn:"GRN-20250107-001",date:"15 Jan 2025",qty:60,oq:null,cq:60,diff:0,cp:251,dv:0,whp:0,st:"Active"},
+             {type:"PRN",grn:"PRN_102012131-121",date:"15 Jan 2025",qty:-5,oq:null,cq:null,diff:-5,cp:249,dv:-1245,whp:0,st:"PRN"}],
+            {dv:24804,prn:1245,net:23559,prnQty:5}),
+          last7: mkD(220,99,162,7,159,0,5,154,
+            [{id:"FC001",name:"FC001 — Bangalore",cp:249,whOb:140,itrOb:0,ob:140,grn:99,prn:5,ret:7,sales:136,cc:2,cb:100,intr:0,whCb:100,whPend:5,shelf:95},
+             {id:"FC002",name:"FC002 — Hyderabad",cp:249,whOb:80,itrOb:0,ob:80,grn:0,prn:0,ret:0,sales:26,cc:0,cb:54,intr:0,whCb:54,whPend:0,shelf:54}],
+            [{type:"GRN",grn:"GRN-20250115-001",date:"6 Jan",qty:60,oq:4,cq:0,diff:4,cp:247,dv:988,whp:0,st:"Fully sold"},
+             {type:"GRN",grn:"GRN-20250113-001",date:"8 Jan",qty:45,oq:45,cq:0,diff:45,cp:247,dv:11115,whp:0,st:"Fully sold"},
+             {type:"GRN",grn:"GRN-20250111-001",date:"10 Jan",qty:50,oq:50,cq:8,diff:42,cp:249,dv:10458,whp:0,st:"Active"},
+             {type:"GRN",grn:"GRN-20250109-001",date:"12 Jan",qty:40,oq:40,cq:40,diff:0,cp:251,dv:0,whp:0,st:"Active"},
+             {type:"GRN",grn:"GRN-20250107-001",date:"14 Jan",qty:45,oq:null,cq:45,diff:0,cp:251,dv:0,whp:5,st:"Active"},
+             {type:"PRN",grn:"PRN_102012131-121",date:"15 Jan",qty:-5,oq:null,cq:null,diff:-5,cp:249,dv:-1245,whp:0,st:"PRN"}],
+            {dv:22561,prn:1245,net:21316,prnQty:5}),
+          last30: mkD(180,180,198,12,166,2,5,159,
+            [{id:"FC001",name:"FC001 — Bangalore",cp:249,whOb:100,itrOb:2,ob:102,grn:180,prn:10,ret:12,sales:168,cc:3,cb:109,intr:2,whCb:107,whPend:5,shelf:100},
+             {id:"FC002",name:"FC002 — Hyderabad",cp:249,whOb:80,itrOb:0,ob:80,grn:0,prn:0,ret:0,sales:30,cc:0,cb:50,intr:0,whCb:50,whPend:0,shelf:50}],
+            [{type:"GRN",grn:"GRN-20250115-001",date:"6 Jan",qty:60,oq:60,cq:0,diff:60,cp:247,dv:14820,whp:0,st:"Fully sold"},
+             {type:"GRN",grn:"GRN-20250113-001",date:"8 Jan",qty:45,oq:null,cq:0,diff:45,cp:247,dv:11115,whp:0,st:"Fully sold"},
+             {type:"GRN",grn:"GRN-20250111-001",date:"10 Jan",qty:50,oq:null,cq:14,diff:36,cp:249,dv:8964,whp:0,st:"Active"},
+             {type:"GRN",grn:"GRN-20250107-001",date:"14 Jan",qty:45,oq:null,cq:45,diff:0,cp:251,dv:0,whp:5,st:"Active"},
+             {type:"PRN",grn:"PRN_102012131-121",date:"15 Jan",qty:-10,oq:null,cq:null,diff:-10,cp:249,dv:-2490,whp:0,st:"PRN"}],
+            {dv:34899,prn:2490,net:32409,prnQty:10}),
+          last3m: mkD(120,360,294,18,192,0,5,187,
+            [{id:"FC001",name:"FC001 — Bangalore",cp:249,whOb:70,itrOb:0,ob:70,grn:360,prn:15,ret:18,sales:244,cc:5,cb:142,intr:0,whCb:142,whPend:5,shelf:137},
+             {id:"FC002",name:"FC002 — Hyderabad",cp:249,whOb:50,itrOb:0,ob:50,grn:0,prn:0,ret:0,sales:50,cc:0,cb:50,intr:0,whCb:50,whPend:0,shelf:50}],
+            [{type:"GRN",grn:"Multiple GRNs (Oct–Dec)",date:"Oct–Dec",qty:240,oq:null,cq:0,diff:240,cp:247,dv:59280,whp:0,st:"Fully sold"},
+             {type:"GRN",grn:"Multiple GRNs (Jan)",date:"Jan 2025",qty:120,oq:null,cq:144,diff:36,cp:249,dv:8964,whp:5,st:"Active"},
+             {type:"PRN",grn:"PRN (multiple)",date:"Jan 2025",qty:-15,oq:null,cq:null,diff:-15,cp:249,dv:-3735,whp:0,st:"PRN"}],
+            {dv:68244,prn:3735,net:64509,prnQty:15}),
+          y2026: mkD(0,1440,1198,72,266,0,5,261,
+            [{id:"FC001",name:"FC001 — Bangalore",cp:249,whOb:0,itrOb:0,ob:0,grn:1440,prn:60,ret:72,sales:998,cc:20,cb:186,intr:0,whCb:186,whPend:5,shelf:181},
+             {id:"FC002",name:"FC002 — Hyderabad",cp:249,whOb:0,itrOb:0,ob:0,grn:0,prn:0,ret:0,sales:200,cc:0,cb:80,intr:0,whCb:80,whPend:0,shelf:80}],
+            [{type:"GRN",grn:"All 2026 GRNs",date:"Full year",qty:1440,oq:0,cq:266,diff:1174,cp:249,dv:292326,whp:5,st:"Active"},
+             {type:"PRN",grn:"PRN (multiple)",date:"Full year",qty:-60,oq:null,cq:null,diff:-60,cp:249,dv:-14940,whp:0,st:"PRN"}],
+            {dv:292326,prn:14940,net:277386,prnQty:60}),
+        }
+      },
+      SKU1089:{name:"Stainless Steel Lunch Box",code:"SKU1089",risk:{sellThrough:null,daysStock:null,risk:'none',riskLabel:'No data'},data:{daily:ZERO_SKU_DATA.daily,last7:ZERO_SKU_DATA.last7,last30:ZERO_SKU_DATA.last30,last3m:ZERO_SKU_DATA.last3m,y2026:ZERO_SKU_DATA.y2026}},
+      SKU3301:{name:"Copper Water Bottle 1L",code:"SKU3301",risk:{sellThrough:null,daysStock:null,risk:'none',riskLabel:'No data'},data:{daily:ZERO_SKU_DATA.daily,last7:ZERO_SKU_DATA.last7,last30:ZERO_SKU_DATA.last30,last3m:ZERO_SKU_DATA.last3m,y2026:ZERO_SKU_DATA.y2026}},
+    }
+  },
+  tata:{name:"TATA Unistore Ltd",skus:{SKU9901:{name:"Premium Steel Bottle 1L",code:"SKU9901",risk:{sellThrough:0,daysStock:0,risk:'green',riskLabel:'No data'},data:{daily:ZERO_SKU_DATA.daily,last7:ZERO_SKU_DATA.last7,last30:ZERO_SKU_DATA.last30,last3m:ZERO_SKU_DATA.last3m,y2026:ZERO_SKU_DATA.y2026}}}},
+  nova:{name:"Nova Housewares Pvt Ltd",skus:{SKU8801:{name:"Glass Storage Jar Set",code:"SKU8801",risk:{sellThrough:0,daysStock:0,risk:'green',riskLabel:'No data'},data:{daily:ZERO_SKU_DATA.daily,last7:ZERO_SKU_DATA.last7,last30:ZERO_SKU_DATA.last30,last3m:ZERO_SKU_DATA.last3m,y2026:ZERO_SKU_DATA.y2026}}}},
+  steel:{name:"Steel Craft Industries",skus:{SKU7701:{name:"Non-Stick Cookware Set",code:"SKU7701",risk:{sellThrough:0,daysStock:0,risk:'green',riskLabel:'No data'},data:{daily:ZERO_SKU_DATA.daily,last7:ZERO_SKU_DATA.last7,last30:ZERO_SKU_DATA.last30,last3m:ZERO_SKU_DATA.last3m,y2026:ZERO_SKU_DATA.y2026}}}},
+};
+
+let currentDK='daily',currentDateLabel='Daily — 2025-01-15',currentDC='all';
+let currentTab='supplier',currentSupplier='decent',currentSKU=null,currentModel='SOR';
 
 function fmt(n){return n===null||n===undefined?'—':Number(n).toLocaleString('en-IN');}
 
@@ -238,11 +328,20 @@ function toggleDD(id){
   document.querySelectorAll('.dd-panel').forEach(p=>{if(p.id!==id+'-panel')p.classList.remove('open');});
   document.getElementById(id+'-panel').classList.toggle('open');
 }
-document.addEventListener('click',function(e){
+document.addEventListener('click',e=>{
   if(!e.target.closest('.dropdown'))document.querySelectorAll('.dd-panel').forEach(p=>p.classList.remove('open'));
 });
 
-function selectDate(dk,label,sub){
+function switchModel(m){
+  currentModel=m;
+  document.getElementById('btn-or').classList.toggle('active',m==='OR');
+  document.getElementById('btn-sor').classList.toggle('active',m==='SOR');
+  document.getElementById('model-badge').textContent=m==='SOR'?'BB SOR':'OR';
+  document.getElementById('model-badge').style.background=m==='SOR'?'#e6f7f0':'#EAF2FF';
+  document.getElementById('model-badge').style.color=m==='SOR'?'#0a7a4a':'#185FA5';
+}
+
+function selectDate(dk,label){
   currentDK=dk;currentDateLabel=label;
   document.getElementById('date-label').textContent=label;
   document.querySelectorAll('#dd-date-panel .dd-item').forEach(el=>{
@@ -266,6 +365,21 @@ function applyCustom(){
   render();
 }
 
+function selectSupplier(key,label){
+  currentSupplier=key;currentSKU=null;
+  document.getElementById('supplier-label').textContent=label;
+  document.querySelectorAll('#dd-supplier-panel .dd-item').forEach(el=>{
+    el.classList.remove('active');
+    const l=el.querySelector('.di-label');
+    if(l)l.textContent=l.textContent.replace(' ✓','');
+  });
+  event.currentTarget.classList.add('active');
+  event.currentTarget.querySelector('.di-label').textContent+=' ✓';
+  document.getElementById('dd-supplier-panel').classList.remove('open');
+  if(currentTab==='sku') switchTab('supplier');
+  else render();
+}
+
 function selectDC(dc,label){
   currentDC=dc;
   document.getElementById('dc-label').textContent=label;
@@ -277,11 +391,128 @@ function selectDC(dc,label){
   event.currentTarget.classList.add('active');
   event.currentTarget.querySelector('.di-label').textContent+=' ✓';
   document.getElementById('dd-dc-panel').classList.remove('open');
+  renderSKUView();
+}
+
+function switchTab(tab){
+  currentTab=tab;
+  document.getElementById('tab-supplier').classList.toggle('active',tab==='supplier');
+  document.getElementById('tab-sku').classList.toggle('active',tab==='sku');
+  document.getElementById('view-supplier').style.display=tab==='supplier'?'block':'none';
+  document.getElementById('view-sku').style.display=tab==='sku'?'block':'none';
+  if(tab==='sku'&&!currentSKU){
+    const firstSKU=Object.keys(SUPPLIERS[currentSupplier].skus)[0];
+    currentSKU=firstSKU;
+  }
   render();
 }
 
+function drillSKU(skuCode){
+  currentSKU=skuCode;currentDC='all';
+  document.getElementById('dc-label').textContent='All DCs';
+  switchTab('sku');
+}
+
+function goBack(){switchTab('supplier');}
+
 function render(){
-  const d=DATA[currentDK];
+  if(currentTab==='supplier') renderSupplierView();
+  else renderSKUView();
+}
+
+function renderSupplierView(){
+  const sup=SUPPLIERS[currentSupplier];
+  const skus=Object.values(sup.skus);
+  const agg=skus.map(s=>s.data[currentDK].tiles).reduce((a,t)=>({
+    ob:a.ob+t.ob,grn:a.grn+t.grn,sales:a.sales+t.sales,
+    ret:a.ret+t.ret,cb:a.cb+t.cb,intr:a.intr+t.intr,
+    whp:a.whp+t.whp,shelf:a.shelf+t.shelf
+  }),{ob:0,grn:0,sales:0,ret:0,cb:0,intr:0,whp:0,shelf:0});
+
+  document.getElementById('sup-tiles').innerHTML=[
+    {l:'Opening balance',v:agg.ob,sub:'all SKUs',cls:'tile-default'},
+    {l:'GRN received',v:agg.grn,sub:'inward',cls:'tile-grn'},
+    {l:'Sales',v:agg.sales,sub:'sold',cls:'tile-default'},
+    {l:'Returns',v:agg.ret,sub:'post pickup',cls:'tile-default'},
+    {l:'Closing balance',v:agg.cb,sub:'with BB',cls:'tile-default'},
+    {l:'In transit',v:agg.intr,sub:'between DCs',cls:'tile-default'},
+    {l:'WH pending',v:agg.whp,sub:'PRN not picked up',cls:'tile-warn'},
+    {l:'Net at shelf',v:agg.shelf,sub:'available for sale',cls:'tile-shelf'},
+  ].map(t=>`<div class="tile ${t.cls}"><div class="tile-label">${t.l}</div><div class="tile-val">${fmt(t.v)}</div><div class="tile-sub">${t.sub}</div></div>`).join('');
+
+  let html=`<thead>
+    <tr>
+      <th class="thl" rowspan="2" style="vertical-align:middle">SKU Code</th>
+      <th class="thl" rowspan="2" style="vertical-align:middle">Description</th>
+      <th rowspan="2" style="vertical-align:middle">Opening bal</th>
+      <th rowspan="2" style="vertical-align:middle">GRN qty</th>
+      <th rowspan="2" style="vertical-align:middle">Closing bal</th>
+      <th rowspan="2" style="vertical-align:middle">Net at shelf</th>
+      <th colspan="2" style="text-align:center;background:#0F6E56;border-bottom:0.5px solid #0a5c47">✓ Sold — Already earned</th>
+      <th colspan="2" style="text-align:center;background:#185FA5;border-bottom:0.5px solid #144d87">~ Unsold — Est. recoverable</th>
+
+      <th rowspan="2" style="vertical-align:middle">Sell-through %<br><span style="font-size:9px;font-weight:400;opacity:0.7">Rolling 30 days</span></th>
+      <th rowspan="2" style="vertical-align:middle">Days of stock<br><span style="font-size:9px;font-weight:400;opacity:0.7">At current rate</span></th>
+      <th rowspan="2" style="vertical-align:middle">Status</th>
+    </tr>
+    <tr>
+      <th style="background:#0F6E56;border-top:0.5px solid #0a5c47">Qty</th>
+      <th style="background:#0F6E56;border-top:0.5px solid #0a5c47">Value (₹)</th>
+      <th style="background:#185FA5;border-top:0.5px solid #144d87">Qty</th>
+      <th style="background:#185FA5;border-top:0.5px solid #144d87">Est. Value (₹)</th>
+
+    </tr>
+  </thead><tbody>`;
+  skus.forEach((sku,i)=>{
+    const t=sku.data[currentDK].tiles;
+    const d=sku.data[currentDK];
+    const m=sku.risk;
+    const rt=m.risk==='green'?'tag-risk-g':m.risk==='amber'?'tag-risk-a':m.risk==='red'?'tag-risk-r':'tag-risk-n';
+    const hasData = t.ob>0||t.grn>0||t.sales>0||t.cb>0;
+    // Weighted avg CP from invoices (use first GRN CP as proxy for demo)
+    const avgCP = d.invoices.length>0 ? d.invoices.filter(r=>r.type==='GRN')[0]?.cp||0 : 0;
+    const soldQty = t.sales;
+    const soldVal = soldQty * avgCP;
+    const unsoldQty = t.shelf; // net at shelf
+    const unsoldVal = unsoldQty * avgCP;
+    const whpQty = t.whp;
+    const whpVal = whpQty * avgCP;
+    html+=`<tr class="${i%2?'alt':''} ${m.risk==='red'?'warn-row':''}">
+      <td class="tdl clickable" onclick="drillSKU('${sku.code}')">${sku.code}</td>
+      <td class="tdl">${sku.name}</td>
+      <td>${hasData?fmt(t.ob):'—'}</td>
+      <td class="${t.grn?'c-grn':''}">${hasData?(t.grn||'—'):'—'}</td>
+      <td class="c-bold">${hasData?fmt(t.cb):'—'}</td>
+      <td class="c-info">${hasData?fmt(t.shelf):'—'}</td>
+      <td class="c-grn">${hasData?fmt(soldQty):'—'}</td>
+      <td class="c-grn">${hasData?'₹'+fmt(soldVal):'—'}</td>
+      <td class="c-info">${hasData?fmt(unsoldQty):'—'}</td>
+      <td class="c-info">${hasData?'~₹'+fmt(unsoldVal):'—'}</td>
+
+      <td class="${m.sellThrough!=null&&m.sellThrough>0?(m.sellThrough<40?'c-red':m.sellThrough<60?'c-warn':'c-grn'):'c-mut'}">${m.sellThrough!=null?m.sellThrough+'%':'—'}</td>
+      <td class="${m.daysStock!=null&&m.daysStock>90?'c-red':m.daysStock!=null&&m.daysStock>60?'c-warn':'c-mut'}">${m.daysStock!=null?m.daysStock+' days':'—'}</td>
+      <td><span class="${rt}">${m.riskLabel}</span></td>
+    </tr>`;
+  });
+  document.getElementById('sku-table').innerHTML=html+'</tbody>';
+
+  const totPay=skus.map(s=>s.data[currentDK].pay).reduce((a,p)=>({dv:a.dv+p.dv,prn:a.prn+p.prn,net:a.net+p.net}),{dv:0,prn:0,net:0});
+  document.getElementById('sup-pay').innerHTML=`
+    <div style="font-size:13px;font-weight:600;color:#111;margin-bottom:12px">${sup.name} · All SKUs · ${currentDateLabel}</div>
+    <div class="pay-row"><span class="pay-label">Total differential value</span><span class="pay-val">₹${fmt(totPay.dv)}</span></div>
+    <div class="pay-row"><span class="pay-label">Total PRN deduction (post pickup only)</span><span class="pay-val red">− ₹${fmt(totPay.prn)}</span></div>
+    <div class="pay-row"><span class="pay-net">Net payable to vendor</span><span class="pay-net-val">₹${fmt(totPay.net)}</span></div>`;
+}
+
+function renderSKUView(){
+  if(!currentSKU)return;
+  const sup=SUPPLIERS[currentSupplier];
+  const sku=sup.skus[currentSKU];
+  if(!sku)return;
+  const d=sku.data[currentDK];
+  document.getElementById('sku-title').textContent=sku.name;
+  document.getElementById('sku-code-badge').textContent=sku.code;
+
   const rows=currentDC==='all'?d.dcs:d.dcs.filter(r=>r.id===currentDC);
   const T=rows.reduce((a,r)=>({
     whOb:a.whOb+r.whOb,itrOb:a.itrOb+r.itrOb,ob:a.ob+r.ob,
@@ -292,89 +523,93 @@ function render(){
 
   const tiles=currentDC==='all'?d.tiles:{ob:T.ob,grn:T.grn,sales:T.sales,ret:T.ret,cb:T.cb,intr:T.intr,whp:T.whPend,shelf:T.shelf};
 
-  // Tiles
-  document.getElementById('tiles').innerHTML=[
-    {l:'Opening balance',v:tiles.ob,sub:'units at start',cls:'tile-default'},
+  document.getElementById('sku-tiles').innerHTML=[
+    {l:'Opening balance',v:tiles.ob,sub:'units',cls:'tile-default'},
     {l:'GRN received',v:tiles.grn,sub:'inward',cls:'tile-grn'},
     {l:'Sales',v:tiles.sales,sub:'sold',cls:'tile-default'},
-    {l:'Returns (post pickup)',v:tiles.ret,sub:'back to stock',cls:'tile-default'},
+    {l:'Returns',v:tiles.ret,sub:'post pickup',cls:'tile-default'},
     {l:'Closing balance',v:tiles.cb,sub:'with BB',cls:'tile-default'},
     {l:'In transit',v:tiles.intr,sub:'between DCs',cls:'tile-default'},
     {l:'WH pending',v:tiles.whp,sub:'PRN not picked up',cls:'tile-warn'},
     {l:'Net at shelf',v:tiles.shelf,sub:'available for sale',cls:'tile-shelf'},
   ].map(t=>`<div class="tile ${t.cls}"><div class="tile-label">${t.l}</div><div class="tile-val">${fmt(t.v)}</div><div class="tile-sub">${t.sub}</div></div>`).join('');
 
-  // DC table
   let dcHTML=`<thead><tr>
     <th class="thl">Buying DC</th><th>CP</th><th>WH Opn Bal</th><th>InTr Opn</th>
     <th>Opn Bal</th><th>GRN</th><th>PRN</th><th>Return (post pickup)</th><th>Sales</th>
     <th>CC Adj</th><th>Closing Bal</th><th>In-Transit</th><th>WH Closing</th>
     <th>WH Pending</th><th>Net at Shelf</th>
   </tr></thead><tbody>`;
-  rows.forEach((r,i)=>{
-    dcHTML+=`<tr class="${i%2?'alt':''}">
-      <td class="tdl c-bold">${r.name}</td><td>₹${r.cp}</td>
-      <td>${fmt(r.whOb)}</td><td>${r.itrOb||'—'}</td>
-      <td class="c-bold">${fmt(r.ob)}</td>
-      <td class="${r.grn?'c-grn':''}">${r.grn||'—'}</td>
-      <td class="${r.prn?'c-warn':''}">${r.prn||'—'}</td>
-      <td>${r.ret||'—'}</td><td>${fmt(r.sales)}</td>
-      <td class="c-mut">${r.cc||'—'}</td>
-      <td class="c-bold">${fmt(r.cb)}</td>
-      <td>${r.intr||'—'}</td><td>${fmt(r.whCb)}</td>
-      <td class="${r.whPend?'c-warn':''}">${r.whPend||'—'}</td>
-      <td class="c-info">${fmt(r.shelf)}</td>
+  if(rows.length===0){
+    dcHTML+=`<tr><td class="tdl c-mut" colspan="15">No data available for selected period</td></tr>`;
+  } else {
+    rows.forEach((r,i)=>{
+      dcHTML+=`<tr class="${i%2?'alt':''}">
+        <td class="tdl c-bold">${r.name}</td><td>₹${r.cp}</td>
+        <td>${fmt(r.whOb)}</td><td>${r.itrOb||'—'}</td>
+        <td class="c-bold">${fmt(r.ob)}</td>
+        <td class="${r.grn?'c-grn':''}">${r.grn||'—'}</td>
+        <td class="${r.prn?'c-warn':''}">${r.prn||'—'}</td>
+        <td>${r.ret||'—'}</td><td>${fmt(r.sales)}</td>
+        <td class="c-mut">${r.cc||'—'}</td>
+        <td class="c-bold">${fmt(r.cb)}</td>
+        <td>${r.intr||'—'}</td><td>${fmt(r.whCb)}</td>
+        <td class="${r.whPend?'c-warn':''}">${r.whPend||'—'}</td>
+        <td class="c-info">${fmt(r.shelf)}</td>
+      </tr>`;
+    });
+    dcHTML+=`<tr class="total"><td class="tdl">Total</td><td>—</td>
+      ${[T.whOb,T.itrOb,T.ob,T.grn,T.prn,T.ret,T.sales,T.cc,T.cb,T.intr,T.whCb,T.whPend,T.shelf].map(v=>`<td>${v||'—'}</td>`).join('')}
     </tr>`;
-  });
-  dcHTML+=`<tr class="total"><td class="tdl">Total</td><td>—</td>
-    ${[T.whOb,T.itrOb,T.ob,T.grn,T.prn,T.ret,T.sales,T.cc,T.cb,T.intr,T.whCb,T.whPend,T.shelf].map(v=>`<td>${v||'—'}</td>`).join('')}
-  </tr></tbody>`;
+  }
+  dcHTML+=`</tbody>`;
   document.getElementById('dc-table').innerHTML=dcHTML;
 
-  // Invoice + PRN table
-  const STTAG={'Fully sold':'tag-sold','Active':'tag-active','New GRN':'tag-new','PRN':'tag-prn'};
+  const STTAG={'Fully sold':'tag-sold','Active':'tag-active','PRN':'tag-prn'};
   let invHTML=`<thead><tr>
-    <th class="thl" style="width:12%">TXN Type</th>
+    <th class="thl" style="width:10%">TXN Type</th>
     <th class="thl" style="width:22%">GRN / PRN #</th>
-    <th>Invoice date</th><th>GRN/PRN qty</th>
+    <th>Invoice date</th><th>Qty</th>
     <th>Opening qty</th><th>Closing qty</th>
-    <th>Differential qty</th><th>GRN/PRN CP (₹)</th><th>Diff value (₹)</th>
+    <th>Differential qty</th><th>CP (₹)</th><th>Diff value (₹)</th>
     <th style="color:#FAC775">WH pending</th>
   </tr></thead><tbody>`;
 
-  let iTot={qty:0,diff:0,dv:0,whp:0};
-  d.invoices.forEach((r,i)=>{
-    const isPRN=r.type==='PRN';
-    iTot.qty+=r.qty; iTot.diff+=r.diff; iTot.dv+=r.dv; iTot.whp+=r.whp;
-    invHTML+=`<tr class="${isPRN?'prn-row':i%2?'alt':''}">
-      <td class="tdl"><span class="tag ${STTAG[r.st]}">${r.type}</span></td>
-      <td class="tdl" style="font-size:11px;color:#555">${r.grn}</td>
-      <td>${r.date}</td>
-      <td class="${isPRN?'c-neg':''}">${fmt(r.qty)}</td>
-      <td class="c-mut">${r.oq===null?'NA':fmt(r.oq)}</td>
-      <td>${r.cq===null?'NA':fmt(r.cq)}</td>
-      <td class="${isPRN?'c-neg':r.diff>0?'c-grn':'c-mut'}">${fmt(r.diff)}</td>
-      <td style="color:#888">${r.cp}</td>
-      <td class="${isPRN?'c-neg':r.dv>0?'c-grn':'c-mut'}">${fmt(r.dv)}</td>
-      <td class="${r.whp?'c-warn':'c-mut'}">${r.whp||'—'}</td>
+  if(d.invoices.length===0){
+    invHTML+=`<tr><td class="tdl c-mut" colspan="10">No data available for selected period</td></tr>`;
+  } else {
+    let iTot={qty:0,diff:0,dv:0,whp:0};
+    d.invoices.forEach((r,i)=>{
+      const isPRN=r.type==='PRN';
+      iTot.qty+=r.qty;iTot.diff+=r.diff;iTot.dv+=r.dv;iTot.whp+=r.whp;
+      invHTML+=`<tr class="${isPRN?'prn-row':i%2?'alt':''}">
+        <td class="tdl"><span class="tag ${STTAG[r.st]||'tag-sold'}">${r.type}</span></td>
+        <td class="tdl" style="font-size:11px;color:#555">${r.grn}</td>
+        <td>${r.date}</td>
+        <td class="${isPRN?'c-neg':''}">${fmt(r.qty)}</td>
+        <td class="c-mut">${r.oq===null?'NA':fmt(r.oq)}</td>
+        <td>${r.cq===null?'NA':fmt(r.cq)}</td>
+        <td class="${isPRN?'c-neg':r.diff>0?'c-grn':'c-mut'}">${fmt(r.diff)}</td>
+        <td style="color:#888">${r.cp}</td>
+        <td class="${isPRN?'c-neg':r.dv>0?'c-grn':'c-mut'}">${fmt(r.dv)}</td>
+        <td class="${r.whp?'c-warn':'c-mut'}">${r.whp||'—'}</td>
+      </tr>`;
+    });
+    invHTML+=`<tr class="total">
+      <td class="tdl" colspan="2">Total</td><td>—</td>
+      <td>${fmt(iTot.qty)}</td><td>—</td><td>—</td>
+      <td class="c-grn">${fmt(iTot.diff)}</td><td>—</td>
+      <td class="c-grn">${fmt(iTot.dv)}</td>
+      <td class="${iTot.whp?'c-warn':''}">${iTot.whp||'—'}</td>
     </tr>`;
-  });
-  invHTML+=`<tr class="total">
-    <td class="tdl" colspan="2">Total</td><td>—</td>
-    <td class="${iTot.qty>0?'':'c-neg'}">${fmt(iTot.qty)}</td>
-    <td>—</td><td>—</td>
-    <td class="c-grn">${fmt(iTot.diff)}</td>
-    <td>—</td>
-    <td class="c-grn">${fmt(iTot.dv)}</td>
-    <td class="${iTot.whp?'c-warn':''}">${iTot.whp||'—'}</td>
-  </tr></tbody>`;
+  }
+  invHTML+=`</tbody>`;
   document.getElementById('inv-table').innerHTML=invHTML;
 
-  // Payable
-  document.getElementById('pay-card').innerHTML=`
-    <div style="font-size:13px;font-weight:600;color:#111;margin-bottom:12px">FC001 · SKU2047 · ${currentDateLabel}</div>
-    <div class="pay-row"><span class="pay-label">Differential value (${iTot.diff} units × GRN CP)</span><span class="pay-val">₹${fmt(d.pay.dv)}</span></div>
-    <div class="pay-row"><span class="pay-label">PRN deduction — ${d.pay.prnQty} units × ₹${rows[0]?.cp||249} (post pickup only)</span><span class="pay-val red">− ₹${fmt(d.pay.prn)}</span></div>
+  document.getElementById('sku-pay').innerHTML=`
+    <div style="font-size:13px;font-weight:600;color:#111;margin-bottom:12px">${sku.name} · ${sku.code} · ${currentDateLabel}</div>
+    <div class="pay-row"><span class="pay-label">Differential value</span><span class="pay-val">₹${fmt(d.pay.dv)}</span></div>
+    <div class="pay-row"><span class="pay-label">PRN deduction — ${d.pay.prnQty} units (post pickup only)</span><span class="pay-val red">− ₹${fmt(d.pay.prn)}</span></div>
     <div class="pay-row"><span class="pay-net">Net payable to vendor</span><span class="pay-net-val">₹${fmt(d.pay.net)}</span></div>`;
 }
 
